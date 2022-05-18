@@ -2,6 +2,7 @@ package com.abhi.cmart.service.implementation;
 
 import com.abhi.cmart.dao.CategoryRepository;
 import com.abhi.cmart.entity.Category;
+import com.abhi.cmart.exception.RecordNotFoundException;
 import com.abhi.cmart.service.interfaces.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,7 +38,7 @@ public class CategoryServiceImpl implements CategoryService {
             category = result.get();
         }
         else {
-            throw new RuntimeException("Did not find Category Id - " + id);
+            throw new RecordNotFoundException("Did not find Category Id - " + id);
         }
         return category;
     }

@@ -19,7 +19,5 @@ public interface OrderService {
 
     public void createOrder(int customerId);
 
-    public void createOrder(String email);
-
     public Order findCartOrder(int customerId);
 }

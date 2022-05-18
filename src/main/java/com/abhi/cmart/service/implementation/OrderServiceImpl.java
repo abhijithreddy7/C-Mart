@@ -5,6 +5,7 @@ import com.abhi.cmart.dao.OrderRepository;
 import com.abhi.cmart.entity.Customer;
 import com.abhi.cmart.entity.Item;
 import com.abhi.cmart.entity.Order;
+import com.abhi.cmart.exception.RecordNotFoundException;
 import com.abhi.cmart.service.interfaces.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,7 +36,7 @@ public class OrderServiceImpl implements OrderService {
             order = result.get();
         }
         else {
-            throw new RuntimeException("Did not find Order Id - " + id);
+            throw new RecordNotFoundException("Did not find Order Id - " + id);
         }
         return order;
     }
@@ -60,22 +61,15 @@ public class OrderServiceImpl implements OrderService {
         Optional<Customer> customerResult = customerRepository.findById(customerId);
         if(customerResult.isPresent()) {
             Customer customer = customerResult.get();
-            Order order = new Order(false, customer, new ArrayList<Item>());
+            Order order = new Order(false, customer, new ArrayList<>());
             save(order);
         }
     }
 
     @Override
-    public void createOrder(String email) {
-        Customer customer = customerRepository.findByEmail(email);
-        Order order = new Order(false, customer, new ArrayList<Item>());
-        save(order);
-    }
-
-    @Override
     public Order findCartOrder(int customerId) {
         List<Order> orders = orderRepository.findByCustomerIdAndIsPlaced(customerId, false);
-        if(orders == null || orders.size()==0)
+        if(orders == null || orders.isEmpty())
             return null;
         return orders.get(0);
     }

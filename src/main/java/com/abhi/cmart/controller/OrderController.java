@@ -85,7 +85,7 @@ public class OrderController {
         int customerId = customerService.getCustomerIdByEmail(customerEmail);
         List<Order> cartItems = orderService.getCustomerCart(customerId);
         if(cartItems == null || cartItems.size() == 0) {
-            orderService.createOrder(customerEmail);
+            orderService.createOrder(customerId);
             cartItems = orderService.getCustomerCart(customerId);
         }
         Order cart = cartItems.get(0);

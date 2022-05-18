@@ -3,6 +3,7 @@ package com.abhi.cmart.service;
 import com.abhi.cmart.dao.CustomerRepository;
 import com.abhi.cmart.entity.Customer;
 import com.abhi.cmart.service.interfaces.CustomerService;
+import com.abhi.cmart.utilities.CustomerSignUp;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;

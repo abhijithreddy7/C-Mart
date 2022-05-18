@@ -30,6 +30,7 @@
 		<sonar.coverage.exclusions>**/com/abhi/cmart/CmartApplication**</sonar.coverage.exclusions>
 		<sonar.coverage.exclusions>**/com/abhi/cmart/service/interfaces/**</sonar.coverage.exclusions>
 		<sonar.coverage.exclusions>**/com/abhi/cmart/utilities/**</sonar.coverage.exclusions>
+		<sonar.coverage.exclusions>**/com/abhi/cmart/exception/**</sonar.coverage.exclusions>
 		<sonar.exclusions>
 			**/com/abhi/cmart/entity/**,
 			**/com/abhi/cmart/dao/**,
@@ -38,7 +39,8 @@
 			**/com/abhi/cmart/SecurityConfiguration**,
 			**/com/abhi/cmart/CmartApplication**,
 			**/com/abhi/cmart/service/interfaces/**,
-			**/com/abhi/cmart/utilities/**
+			**/com/abhi/cmart/utilities/**,
+			**/com/abhi/cmart/exception/**
 		</sonar.exclusions>
 	</properties>
 	<dependencies>

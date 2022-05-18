@@ -2,6 +2,7 @@ package com.abhi.cmart.service.implementation;
 
 import com.abhi.cmart.dao.CustomerRepository;
 import com.abhi.cmart.entity.Customer;
+import com.abhi.cmart.exception.RecordNotFoundException;
 import com.abhi.cmart.utilities.CustomerSignUp;
 import com.abhi.cmart.service.interfaces.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +53,7 @@ public class CustomerServiceImpl implements CustomerService {
             customer = result.get();
         }
         else {
-            throw new RuntimeException("Did not find Customer Id - " + id);
+            throw new RecordNotFoundException("Did not find Customer Id - " + id);
         }
         return customer;
     }
