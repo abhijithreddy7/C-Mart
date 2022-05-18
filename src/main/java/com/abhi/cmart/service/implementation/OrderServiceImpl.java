@@ -3,7 +3,6 @@ package com.abhi.cmart.service.implementation;
 import com.abhi.cmart.dao.CustomerRepository;
 import com.abhi.cmart.dao.OrderRepository;
 import com.abhi.cmart.entity.Customer;
-import com.abhi.cmart.entity.Item;
 import com.abhi.cmart.entity.Order;
 import com.abhi.cmart.exception.RecordNotFoundException;
 import com.abhi.cmart.service.interfaces.OrderService;
