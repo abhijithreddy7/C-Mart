@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<htmL lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" th:href="@{/css/form.css}"/>
+
+    <title>Book Store | Sign In</title>
+</head>
+<body>
+<div id="content">
+    <div class="container">
+        <h1>SIGN IN</h1>
+        <div class="error" th:if="${param.error}">Invalid Email or Password</div>
+        <div class="error" th:if="${param.logout != null}">You have been logged out</div>
+        <div class="error" th:if="${signedUp}">Account Created</div><br>
+        <form th:action="@{/login}" method="POST" >
+            <input type="text" class="formField" placeholder="Email" name="username"><br>
+            <input type="password" class="formField" placeholder="Password" name="password"><br>
+            <button type="submit" class="button formField">Sign In</button>
+        </form>
+        <br>
+        <a th:href="@{/signup}">Do not have an account? Sign Up</a>
+    </div>
+</div>
+</body>
+</htmL>

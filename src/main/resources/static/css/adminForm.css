@@ -1,0 +1,17 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.adminForm {
+    text-align: center;
+}
+
+.adminForm form button {
+    margin-top: 1%;
+    border: none;
+    background-color: #283593;
+    color: white;
+}

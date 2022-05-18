@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html>
+<head>
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" th:href="@{/css/categoriesList.css}"/>
+    <link rel="stylesheet" th:href="@{/css/navbar.css}"/>
+    <link rel="stylesheet" th:href="@{/css/itemPage.css}"/>
+
+    <title>Book Store</title>
+</head>
+<body>
+    <nav class="navBar">
+        <div class="navItems">
+        <form th:action="@{/home}" method="POST" class="navButton">
+            <div>
+                <button type="submit">Home</button>
+            </div>
+        </form>
+        <form th:action="@{/user/cart}" method="POST" sec:authorize="hasAuthority('USER')">
+            <div>
+                <button type="submit">Cart</button>
+            </div>
+        </form>
+        <form th:action="@{/user/orders}" method="POST" sec:authorize="hasAuthority('USER')">
+            <div>
+                <button type="submit">My Orders</button>
+            </div>
+        </form>
+        <form th:action="@{/admin/orders}" method="POST" sec:authorize="hasAuthority('ADMIN')">
+            <div>
+                <button type="submit">Orders</button>
+            </div>
+        </form>
+        <form th:action="@{/logout}" method="POST" sec:authorize="hasAnyAuthority('USER','ADMIN')">
+            <div>
+                <button type="submit">Logout</button>
+            </div>
+        </form>
+        </div>
+    </nav><br>
+
+    <div th:each="temp : ${categories}" class="categories">
+            <form th:action="@{'/categories/'+${temp.id}}" method="POST">
+                <div>
+                    <button type="submit" th:text="${temp.name}" th:if="${categoryId==null || categoryId!=temp.id}" class="unselectedCategory"/>
+                    <button type="submit" th:text="${temp.name}" th:if="${categoryId!=null && categoryId==temp.id}" class="selectedCategory"/>
+                </div>
+            </form>
+    </div>
+
+    <div class="itemDesc">
+        <img th:src="${item?.imageURL}" th:alt="${image?.name}" >
+        <h1 th:text="${item?.name}"/>
+        <h3 th:text="'Rs. ' + ${item?.cost} + ' /-'"/>
+        <div class="itemDetail">
+            <strong>Author: </strong>
+            <span th:text="${item?.brand}"/>
+        </div>
+        <div class="itemDetail">
+            <strong>Dimensions : </strong>
+            <span th:text="'H ' + ${item?.height} + ' x W ' + ${item?.width} + ' x D ' + ${item?.depth} + ' (all dimensions in cm)'"/>
+        </div>
+        <div class="itemDetail">
+            <strong>Weight : </strong>
+            <span th:text="${item?.weight} + ' grams'"/>
+        </div>
+        <div class="itemDetail">
+            <strong>Colour : </strong>
+            <span th:text="${item?.colour}"/>
+        </div>
+        <div class="itemDetail">
+            <strong>Warranty : </strong>
+            <span th:text="${item?.warranty} + ' Months Warranty'"/>
+        </div>
+        <div class="itemDetail">
+            <strong>Primary Material : </strong>
+            <span th:text="${item?.material}"/>
+        </div>
+        <form th:action="@{'/user/order/placeOrder/'+${item?.id}}" method="POST" sec:authorize="hasAuthority('USER')">
+            <button type="submit" class="itemButton">BUY NOW</button>
+        </form>
+        <form th:action="@{'/admin/items/'+${item?.id}}" method="POST" sec:authorize="hasAuthority('ADMIN')">
+                    <button type="submit" class="itemButton">DELETE ITEM</button>
+                </form>
+        <div th:if="${isPresent}" class="error">
+            Item already exists in your cart !!!
+        </div>
+    </div>
+</body>
+</html>

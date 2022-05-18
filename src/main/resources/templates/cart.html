@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html>
+<head>
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" th:href="@{/css/navbar.css}"/>
+    <link rel="stylesheet" th:href="@{/css/cart.css}"/>
+
+    <title>Book Store</title>
+</head>
+<body>
+    <nav class="navBar">
+        <div class="navItems">
+        <form th:action="@{/home}" method="POST" class="navButton">
+            <div>
+                <button type="submit">Home</button>
+            </div>
+        </form>
+        <form th:action="@{/user/cart}" method="POST" sec:authorize="hasAuthority('USER')">
+            <div>
+                <button type="submit">Cart</button>
+            </div>
+        </form>
+        <form th:action="@{/user/orders}" method="POST" sec:authorize="hasAuthority('USER')">
+            <div>
+                <button type="submit">My Orders</button>
+            </div>
+        </form>
+        <form th:action="@{/user/orders}" method="POST" sec:authorize="hasAuthority('ADMIN')">
+            <div>
+                <button type="submit">Orders</button>
+            </div>
+        </form>
+        <form th:action="@{/logout}" method="POST" sec:authorize="hasAnyAuthority('USER','ADMIN')">
+            <div>
+                <button type="submit">Logout</button>
+            </div>
+        </form>
+        </div>
+    </nav><br>
+    <div class="cart">
+        <div class="error" th:if="${cartItems == null}">Your Cart is empty!!</div>
+        <div class="error" th:if="${isPresent}">Item already present in cart!!</div>
+        <table class="cartTable">
+            <thead>
+                <tr>
+                    <th class="tableHeading">Product Name</th>
+                    <th class="tableHeading">Price</th>
+                    <th class="tableHeading">Delete</th>
+                </tr>
+            </thead>
+            <tbody th:each="temp : ${cartItems}">
+                <tr>
+                    <td th:text="${temp.name}"/>
+                    <td th:text="'Rs. ' + ${temp.cost} + ' /-'"/>
+                    <td>
+                        <form th:action="@{'/user/cart/delete/' + ${temp.id}}" method="POST">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h3 th:if="${cartCost != null}" th:text="'Total Cost : Rs. ' + ${cartCost} + ' /-'"/>
+        <form th:action="@{/user/placeOrder}" method="POST">
+            <button type="submit" class="placeOrder">Place Order</button>
+        </form>
+    </div>
+</body>
+</html>
